@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alea Winkel - Premium Quality</title>
+    <link href="https://cdn.tailwindcss.com" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #141414;
+            --bg-card: #1a1a1a;
+            --fg-primary: #ffffff;
+            --fg-secondary: #a0a0a0;
+            --fg-muted: #6b6b6b;
+            --accent-gold: #c9a962;
+            --accent-gold-light: #e8d5a3;
+            --accent-rose: #d4a574;
+            --border-color: #2a2a2a;
+            --glass-bg: rgba(20, 20, 20, 0.85);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--fg-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .font-display {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-gold);
+            border-radius: 4px;
+        }
+
+        /* Background Pattern */
+        .bg-pattern {
+            background-image: 
+                radial-gradient(ellipse at 20% 30%, rgba(201, 169, 98, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 70%, rgba(212, 165, 116, 0.06) 0%, transparent 50%),
+                linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+        }
+
+        /* Noise Texture Overlay */
+        .noise-overlay::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        /* Navigation */
+        .nav-glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(201, 169, 98, 0.15);
+        }
+
+        .nav-link {
+            position: relative;
+            color: var(--fg-secondary);
+            transition: color 0.3s ease;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: linear-gradient(90deg, var(--accent-gold), var(--accent-rose));
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-gold);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: 
+                linear-gradient(135deg, rgba(10, 10, 10, 0.95) 0%, rgba(20, 20, 20, 0.9) 100%),
+                url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .hero-gradient {
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(ellipse at 30% 20%, rgba(201, 169, 98, 0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 80%, rgba(212, 165, 116, 0.08) 0%, transparent 50%);
+        }
+
+        .hero-line {
+            position: absolute;
+            background: linear-gradient(180deg, transparent, var(--accent-gold), transparent);
+            width: 1px;
+            height: 200px;
+            opacity: 0.3;
+        }
+
+        /* Floating Elements */
+        .float-element {
+            position: absolute;
+            border: 1px solid rgba(201, 169, 98, 0.2);
+            border-radius: 50%;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(180deg); }
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-rose) 100%);
+            color: var(--bg-primary);
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            padding: 1rem 2.5rem;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(201, 169, 98, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--accent-gold);
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            padding: 0.875rem 2rem;
+            border: 1px solid var(--accent-gold);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline:hover {
+            background: var(--accent-gold);
+            color: var(--bg-primary);
+        }
+
+        /* Product Cards */
+        .product-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .product-card:hover::before {
+            opacity: 1;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(201, 169, 98, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(201, 169, 98, 0.1);
+        }
+
+        .product-image-wrapper {
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-secondary);
+        }
+
+        .product-image {
+            width: 100%;
+            aspect-ratio: 3/4;
+            object-fit: cover;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.08);
+        }
+
+        .product-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.8) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .product-card:hover .product-overlay {
+            opacity: 1;
+        }
+
+        .product-actions {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .product-card:hover .product-actions {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* Section Divider */
+        .section-divider {
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, var(--accent-gold), var(--accent-rose));
+            margin: 1.5rem auto;
+        }
+
+        /* Cart Sidebar */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -420px;
+            width: 420px;
+            max-width: 100vw;
+            height: 100vh;
+            background: var(--bg-secondary);
+            border-left: 1px solid var(--border-color);
+            z-index: 1001;
+            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-sidebar.open {
+            right: 0;
+        }
+
+        .cart-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .cart-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Cart Item */
+        .cart-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            transition: background 0.3s ease;
+        }
+
+        .cart-item:hover {
+            background: rgba(201, 169, 98, 0.05);
+        }
+
+        /* Quantity Controls */
+        .qty-control {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+        }
+
+        .qty-btn {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            border: none;
+            color: var(--fg-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .qty-btn:hover {
+            color: var(--accent-gold);
+            background: rgba(201, 169, 98, 0.1);
+        }
+
+        /* Payment Methods */
+        .payment-logo {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 1rem 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .payment-logo:hover {
+            border-color: var(--accent-gold);
+            transform: translateY(-2px);
+        }
+
+        /* Social Icons */
+        .social-icon {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border-color);
+            color: var(--fg-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+            transform: translateY(-3px);
+        }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--bg-card);
+            border: 1px solid var(--accent-gold);
+            padding: 1rem 2rem;
+            z-index: 2000;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100vh;
+            background: var(--bg-primary);
+            z-index: 999;
+            transition: left 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .mobile-menu.open {
+            left: 0;
+        }
+
+        /* Marquee */
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+            background: var(--bg-secondary);
+        }
+
+        .marquee-content {
+            display: inline-flex;
+            animation: marquee 30s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+        }
+    </style>
+</head>
+<body class="noise-overlay">
+
+    <!-- ========================================
+         KONFIGURASI - EDIT BAGIAN INI UNTUK MENGUBAH KONTEN
+         ======================================== -->
+    <script>
+        // ============================================
+        // KONFIGURASI UTAMA - EDIT BAGIAN INI
+        // ============================================
+        
+        const CONFIG = {
+            // Informasi Toko
+            storeName: "Alea Winkel",
+            tagline: "Premium Quality",
+            description: "Koleksi produk premium pilihan dengan kualitas terbaik untuk gaya hidup modern Anda.",
+            whatsappNumber: "628xxxxxxxxxx", // Ganti dengan nomor WhatsApp bisnis Anda
+            
+            // Logo (ganti URL dengan logo Anda)
+            logo: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=200&h=200&fit=crop",
+            
+            // Hero Image (ganti URL dengan gambar hero Anda)
+            heroImage: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1920&q=80",
+            
+            // Sosial Media Links
+            socialLinks: {
+                instagram: "https://instagram.com/aleawinkel",
+                tiktok: "https://tiktok.com/@aleawinkel",
+                shopee: "https://shopee.co.id/aleawinkel",
+                tokopedia: "https://tokopedia.com/aleawinkel",
+                tiktokShop: "https://tiktok.com/@aleawinkel/shop"
+            }
+        };
+
+        // ============================================
+        // DATA PRODUK - TAMBAH/EDIT/HAPUS PRODUK DI SINI
+        // ============================================
+        
+        const PRODUCTS = [
+            {
+                id: 1,
+                name: "Leather Premium Bag",
+                price: 1250000,
+                image: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&q=80",
+                description: "Tas kulit premium dengan desain elegan dan material berkualitas tinggi."
+            },
+            {
+                id: 2,
+                name: "Classic Watch Gold",
+                price: 2850000,
+                image: "https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=600&q=80",
+                description: "Jam tangan klasik dengan aksen emas untuk kesan mewah dan timeless."
+            },
+            {
+                id: 3,
+                name: "Silk Scarf Collection",
+                price: 650000,
+                image: "https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=600&q=80",
+                description: "Syal sutra premium dengan motif eksklusif dan warna yang memukau."
+            },
+            {
+                id: 4,
+                name: "Designer Sunglasses",
+                price: 980000,
+                image: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&q=80",
+                description: "Kacamata desainer dengan perlindungan UV sempurna dan gaya ikonik."
+            },
+            {
+                id: 5,
+                name: "Premium Wallet Set",
+                price: 750000,
+                image: "https://images.unsplash.com/photo-1627123424574-724758594e93?w=600&q=80",
+                description: "Set dompet premium kulit asli dengan detail craftsmanship sempurna."
+            },
+            {
+                id: 6,
+                name: "Luxury Perfume",
+                price: 1450000,
+                image: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=600&q=80",
+                description: "Parfum mewah dengan aroma eksklusif yang tahan seharian."
+            },
+            {
+                id: 7,
+                name: "Ceramic Vase Set",
+                price: 520000,
+                image: "https://images.unsplash.com/photo-1578500494198-246f612d3b3d?w=600&q=80",
+                description: "Set vas keramik artisan untuk dekorasi rumah yang elegan."
+            },
+            {
+                id: 8,
+                name: "Premium Candle Collection",
+                price: 380000,
+                image: "https://images.unsplash.com/photo-1602874801007-bd458bb1b8b6?w=600&q=80",
+                description: "Lilin aromatherapy premium dengan wangi eksklusif dan pembakaran bersih."
+            }
+        ];
+    </script>
+
+    <!-- Navigation -->
+    <nav class="nav-glass fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full overflow-hidden border border-[var(--accent-gold)]">
+                    <img src="" alt="Logo" class="w-full h-full object-cover" id="navLogo">
+                </div>
+                <span class="font-display text-xl tracking-wider text-[var(--fg-primary)]" id="navStoreName"></span>
+            </a>
+            
+            <!-- Desktop Navigation -->
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#products" class="nav-link">Products</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#payment" class="nav-link">Payment</a>
+            </div>
+            
+            <!-- Cart & Mobile Menu -->
+            <div class="flex items-center gap-4">
+                <button id="cartBtn" class="relative p-2 text-[var(--fg-secondary)] hover:text-[var(--accent-gold)] transition-colors" aria-label="Open cart">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+                        <line x1="3" y1="6" x2="21" y2="6"/>
+                        <path d="M16 10a4 4 0 01-8 0"/>
+                    </svg>
+                    <span id="cartCount" class="absolute -top-1 -right-1 w-5 h-5 bg-[var(--accent-gold)] text-[var(--bg-primary)] text-xs font-bold rounded-full flex items-center justify-center hidden">0</span>
+                </button>
+                
+                <button id="mobileMenuBtn" class="md:hidden p-2 text-[var(--fg-secondary)]" aria-label="Open menu">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <line x1="3" y1="6" x2="21" y2="6"/>
+                        <line x1="3" y1="12" x2="21" y2="12"/>
+                        <line x1="3" y1="18" x2="21" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu">
+        <button id="closeMobileMenu" class="absolute top-6 right-6 p-2 text-[var(--fg-secondary)]" aria-label="Close menu">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+        </button>
+        <a href="#home" class="font-display text-3xl text-[var(--fg-primary)] hover:text-[var(--accent-gold)] transition-colors mobile-link">Home</a>
+        <a href="#products" class="font-display text-3xl text-[var(--fg-primary)] hover:text-[var(--accent-gold)] transition-colors mobile-link">Products</a>
+        <a href="#about" class="font-display text-3xl text-[var(--fg-primary)] hover:text-[var(--accent-gold)] transition-colors mobile-link">About</a>
+        <a href="#payment" class="font-display text-3xl text-[var(--fg-primary)] hover:text-[var(--accent-gold)] transition-colors mobile-link">Payment</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section bg-pattern">
+        <div class="hero-bg"></div>
+        <div class="hero-gradient"></div>
+        
+        <!-- Floating Decorative Elements -->
+        <div class="float-element" style="width: 300px; height: 300px; top: 10%; left: -5%; animation-delay: 0s;"></div>
+        <div class="float-element" style="width: 200px; height: 200px; bottom: 20%; right: -3%; animation-delay: -5s;"></div>
+        <div class="float-element" style="width: 150px; height: 150px; top: 50%; left: 10%; animation-delay: -10s;"></div>
+        
+        <!-- Hero Lines -->
+        <div class="hero-line" style="left: 20%; top: 0;"></div>
+        <div class="hero-line" style="right: 20%; top: 0;"></div>
+        
+        <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
+            <p class="text-[var(--accent-gold)] tracking-[0.3em] text-sm mb-6 reveal">SINCE 2024</p>
+            <h1 class="font-display text-5xl md:text-7xl lg:text-8xl font-light text-[var(--fg-primary)] mb-6 reveal reveal-delay-1" id="heroTitle">
+                Alea Winkel
+            </h1>
+            <div class="section-divider reveal reveal-delay-2"></div>
+            <p class="text-[var(--fg-secondary)] text-lg md:text-xl font-light tracking-wide mb-10 reveal reveal-delay-2" id="heroTagline">
+                Premium Quality
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center reveal reveal-delay-3">
+                <a href="#products" class="btn-primary">Explore Collection</a>
+                <a href="#about" class="btn-outline">Our Story</a>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[var(--fg-muted)]">
+            <span class="text-xs tracking-widest">SCROLL</span>
+            <div class="w-px h-12 bg-gradient-to-b from-[var(--accent-gold)] to-transparent"></div>
+        </div>
+    </section>
+
+    <!-- Marquee -->
+    <div class="marquee-container">
+        <div class="marquee-content">
+            <span class="text-[var(--fg-muted)] text-sm tracking-[0.3em] mx-8">PREMIUM QUALITY</span>
+            <span class="text-[var(--accent-gold)]">◆</span>
+            <span class="text-[var(--fg-muted)] text-sm tracking-[0.3em] mx-8">HANDCRAFTED</span>
+            <span class="text-[var(--accent-gold)]">◆</span>
+            <span class="text-[var(--fg-muted)] text-sm tracking-[0.3em] mx-8">EXCLUSIVE DESIGN</span>
+            <span class="text-[var(--accent-gold)]">◆</span>
+            <span class="text-[var(--fg-muted)] text-sm tracking-[0.3em] mx-8">FREE SHIPPING</span>
+            <span class="text-[var(--accent-gold)]">◆</span>
+            <span class="text-[var(--fg-muted)] text-sm tracking-[0.3em] mx-8">PREMIUM QUALITY</span>
+            <span class="text-[var(--accent-gold)]">◆</span>
+            <span class="text-[var(--fg-muted)] text-sm tracking-[0.3em] mx-8">HANDCRAFTED</span>
+            <span class="text-[var(--accent-gold)]">◆</span>
+            <span class="text-[var(--fg-muted)] text-sm tracking-[0.3em] mx-8">EXCLUSIVE DESIGN</span>
+            <span class="text-[var(--accent-gold)]">◆</span>
+            <span class="text-[var(--fg-muted)] text-sm tracking-[0.3em] mx-8">FREE SHIPPING</span>
+            <span class="text-[var(--accent-gold)]">◆</span>
+        </div>
+    </div>
+
+    <!-- Products Section -->
+    <section id="products" class="py-24 md:py-32 bg-pattern">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <p class="text-[var(--accent-gold)] tracking-[0.3em] text-sm mb-4 reveal">OUR COLLECTION</p>
+                <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-light text-[var(--fg-primary)] reveal reveal-delay-1">
+                    Featured Products
+                </h2>
+                <div class="section-divider reveal reveal-delay-2"></div>
+            </div>
+            
+            <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Products will be rendered here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 md:py-32 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[var(--bg-secondary)]"></div>
+        <div class="absolute inset-0 bg-gradient-to-br from-[rgba(201,169,98,0.05)] to-transparent"></div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
+                <div class="reveal">
+                    <p class="text-[var(--accent-gold)] tracking-[0.3em] text-sm mb-4">ABOUT US</p>
+                    <h2 class="font-display text-4xl md:text-5xl font-light text-[var(--fg-primary)] mb-6">
+                        Crafted With Passion
+                    </h2>
+                    <div class="section-divider !mx-0"></div>
+                    <p class="text-[var(--fg-secondary)] leading-relaxed mb-6" id="aboutDescription">
+                        Alea Winkel hadir sebagai destinasi premium bagi Anda yang menghargai kualitas dan keindahan. Setiap produk kami dipilih dengan cermat untuk memastikan standar tertinggi dalam craftsmanship dan desain.
+                    </p>
+                    <p class="text-[var(--fg-secondary)] leading-relaxed mb-8">
+                        Kami percaya bahwa setiap detail memiliki makna. Dari pemilihan material hingga sentuhan akhir, semua dilakukan dengan dedikasi penuh untuk memberikan pengalaman berbelanja yang istimewa.
+                    </p>
+                    <div class="flex gap-8">
+                        <div>
+                            <p class="font-display text-4xl text-[var(--accent-gold)]">500+</p>
+                            <p class="text-[var(--fg-muted)] text-sm tracking-wide">Happy Customers</p>
+                        </div>
+                        <div>
+                            <p class="font-display text-4xl text-[var(--accent-gold)]">50+</p>
+                            <p class="text-[var(--fg-muted)] text-sm tracking-wide">Premium Products</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative reveal reveal-delay-2">
+                    <div class="aspect-[4/5] relative">
+                        <img src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=800&q=80" 
+                             alt="About Alea Winkel" 
+                             class="w-full h-full object-cover">
+                        <div class="absolute inset-0 border border-[var(--accent-gold)] transform translate-x-4 translate-y-4 -z-10"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Section -->
+    <section id="payment" class="py-24 md:py-32 bg-pattern">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <p class="text-[var(--accent-gold)] tracking-[0.3em] text-sm mb-4 reveal">PAYMENT METHODS</p>
+            <h2 class="font-display text-4xl md:text-5xl font-light text-[var(--fg-primary)] mb-6 reveal reveal-delay-1">
+                Easy Payment Options
+            </h2>
+            <div class="section-divider reveal reveal-delay-2"></div>
+            <p class="text-[var(--fg-secondary)] mb-12 reveal reveal-delay-2">
+                Pilih metode pembayaran yang paling nyaman untuk Anda. Konfirmasi pembayaran akan dilakukan melalui WhatsApp.
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-6 reveal reveal-delay-3">
+                <div class="payment-logo">
+                    <svg width="80" height="30" viewBox="0 0 80 30" fill="none">
+                        <rect width="80" height="30" rx="4" fill="#0066B3"/>
+                        <text x="40" y="20" text-anchor="middle" fill="white" font-size="12" font-weight="bold">BCA</text>
+                    </svg>
+                </div>
+                <div class="payment-logo">
+                    <svg width="80" height="30" viewBox="0 0 80 30" fill="none">
+                        <rect width="80" height="30" rx="4" fill="#EE4D2D"/>
+                        <text x="40" y="20" text-anchor="middle" fill="white" font-size="10" font-weight="bold">ShopeePay</text>
+                    </svg>
+                </div>
+                <div class="payment-logo">
+                    <svg width="80" height="30" viewBox="0 0 80 30" fill="none">
+                        <rect width="80" height="30" rx="4" fill="#108EE9"/>
+                        <text x="40" y="20" text-anchor="middle" fill="white" font-size="12" font-weight="bold">DANA</text>
+                    </svg>
+                </div>
+            </div>
+            
+            <p class="text-[var(--fg-muted)] text-sm mt-8 reveal reveal-delay-3">
+                Setelah checkout, Anda akan diarahkan ke WhatsApp untuk konfirmasi pembayaran.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-16 border-t border-[var(--border-color)] bg-[var(--bg-secondary)]">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-12 mb-12">
+                <!-- Brand -->
+                <div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 rounded-full overflow-hidden border border-[var(--accent-gold)]">
+                            <img src="" alt="Logo" class="w-full h-full object-cover" id="footerLogo">
+                        </div>
+                        <span class="font-display text-2xl text-[var(--fg-primary)]" id="footerStoreName"></span>
+                    </div>
+                    <p class="text-[var(--fg-secondary)] text-sm leading-relaxed" id="footerDescription"></p>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-display text-lg text-[var(--fg-primary)] mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-[var(--fg-secondary)] hover:text-[var(--accent-gold)] transition-colors text-sm">Home</a></li>
+                        <li><a href="#products" class="text-[var(--fg-secondary)] hover:text-[var(--accent-gold)] transition-colors text-sm">Products</a></li>
+                        <li><a href="#about" class="text-[var(--fg-secondary)] hover:text-[var(--accent-gold)] transition-colors text-sm">About Us</a></li>
+                        <li><a href="#payment" class="text-[var(--fg-secondary)] hover:text-[var(--accent-gold)] transition-colors text-sm">Payment</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Social Media -->
+                <div>
+                    <h4 class="font-display text-lg text-[var(--fg-primary)] mb-4">Connect With Us</h4>
+                    <div class="flex gap-3" id="socialLinks">
+                        <!-- Social links will be rendered here -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-[var(--border-color)] pt-8 text-center">
+                <p class="text-[var(--fg-muted)] text-sm">
+                    &copy; 2024 <span id="copyrightName"></span>. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Sidebar -->
+    <div id="cartOverlay" class="cart-overlay"></div>
+    <aside id="cartSidebar" class="cart-sidebar">
+        <div class="p-6 border-b border-[var(--border-color)] flex items-center justify-between">
+            <h3 class="font-display text-2xl text-[var(--fg-primary)]">Your Cart</h3>
+            <button id="closeCart" class="p-2 text-[var(--fg-secondary)] hover:text-[var(--accent-gold)] transition-colors" aria-label="Close cart">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
+        </div>
+        
+        <div id="cartItems" class="flex-1 overflow-y-auto">
+            <!-- Cart items will be rendered here -->
+        </div>
+        
+        <div id="cartEmpty" class="flex-1 flex flex-col items-center justify-center p-6 text-center hidden">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--fg-muted)" stroke-width="1">
+                <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+                <line x1="3" y1="6" x2="21" y2="6"/>
+                <path d="M16 10a4 4 0 01-8 0"/>
+            </svg>
+            <p class="text-[var(--fg-muted)] mt-4">Your cart is empty</p>
+            <button id="startShopping" class="btn-outline mt-6">Start Shopping</button>
+        </div>
+        
+        <div id="cartFooter" class="p-6 border-t border-[var(--border-color)]">
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-[var(--fg-secondary)]">Subtotal</span>
+                <span class="font-display text-xl text-[var(--fg-primary)]" id="cartTotal">Rp 0</span>
+            </div>
+            <button id="checkoutBtn" class="btn-primary w-full">
+                Checkout via WhatsApp
+            </button>
+            <p class="text-[var(--fg-muted)] text-xs text-center mt-3">
+                Anda akan diarahkan ke WhatsApp untuk menyelesaikan pesanan
+            </p>
+        </div>
+    </aside>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <p class="text-[var(--fg-primary)] text-sm" id="toastMessage">Product added to cart</p>
+    </div>
+
+    <!-- ========================================
+         JAVASCRIPT
+         ======================================== -->
+    <script>
+        // ============================================
+        // INITIALIZATION
+        // ============================================
+        
+        // Cart State
+        let cart = [];
+        
+        // DOM Elements - Initialize after DOM is ready
+        let cartSidebar, cartOverlay, cartItems, cartEmpty, cartFooter, cartTotal, cartCount;
+        
+        // ============================================
+        // UTILITY FUNCTIONS
+        // ============================================
+        
+        function formatPrice(price) {
+            return 'Rp ' + price.toLocaleString('id-ID');
+        }
+        
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            if (toast && toastMessage) {
+                toastMessage.textContent = message;
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 3000);
+            }
+        }
+        
+        // ============================================
+        // RENDER FUNCTIONS
+        // ============================================
+        
+        function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            if (!grid) return;
+            
+            grid.innerHTML = PRODUCTS.map((product, index) => `
+                <div class="product-card reveal reveal-delay-${(index % 4) + 1}">
+                    <div class="product-image-wrapper">
+                        <img src="${product.image}" alt="${product.name}" class="product-image" loading="lazy">
+                        <div class="product-overlay"></div>
+                        <div class="product-actions">
+                            <button onclick="addToCart(${product.id})" class="btn-primary text-xs py-3 px-6">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-display text-lg text-[var(--fg-primary)] mb-1">${product.name}</h3>
+                        <p class="text-[var(--fg-muted)] text-xs mb-3 line-clamp-2">${product.description}</p>
+                        <p class="text-[var(--accent-gold)] font-semibold">${formatPrice(product.price)}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function renderCart() {
+            if (!cartItems || !cartEmpty || !cartFooter) return;
+            
+            if (cart.length === 0) {
+                cartItems.classList.add('hidden');
+                cartEmpty.classList.remove('hidden');
+                cartFooter.classList.add('hidden');
+                return;
+            }
+            
+            cartItems.classList.remove('hidden');
+            cartEmpty.classList.add('hidden');
+            cartFooter.classList.remove('hidden');
+            
+            cartItems.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <img src="${item.image}" alt="${item.name}" class="w-20 h-20 object-cover">
+                    <div class="flex-1">
+                        <h4 class="text-[var(--fg-primary)] text-sm font-medium">${item.name}</h4>
+                        <p class="text-[var(--accent-gold)] text-sm">${formatPrice(item.price)}</p>
+                        <div class="flex items-center gap-2 mt-2">
+                            <div class="qty-control">
+                                <button onclick="updateQuantity(${item.id}, -1)" class="qty-btn" aria-label="Decrease quantity">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="5" y1="12" x2="19" y2="12"/>
+                                    </svg>
+                                </button>
+                                <span class="text-[var(--fg-primary)] text-sm w-8 text-center">${item.quantity}</span>
+                                <button onclick="updateQuantity(${item.id}, 1)" class="qty-btn" aria-label="Increase quantity">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="12" y1="5" x2="12" y2="19"/>
+                                        <line x1="5" y1="12" x2="19" y2="12"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <button onclick="removeFromCart(${item.id})" class="text-[var(--fg-muted)] hover:text-red-400 transition-colors ml-auto" aria-label="Remove item">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="3 6 5 6 21 6"/>
+                                    <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            if (cartTotal) {
+                cartTotal.textContent = formatPrice(total);
+            }
+        }
+        
+        function updateCartCount() {
+            if (!cartCount) return;
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = count;
+            cartCount.classList.toggle('hidden', count === 0);
+        }
+        
+        function renderSocialLinks() {
+            const container = document.getElementById('socialLinks');
+            if (!container) return;
+            
+            const icons = {
+                instagram: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="18" cy="6" r="1"/></svg>`,
+                tiktok: `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"/></svg>`,
+                shopee: `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>`,
+                tokopedia: `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>`,
+                tiktokShop: `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"/><circle cx="17" cy="17" r="5" fill="var(--accent-gold)"/></svg>`
+            };
+            
+            container.innerHTML = Object.entries(CONFIG.socialLinks).map(([key, url]) => `
+                <a href="${url}" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="${key}">
+                    ${icons[key] || ''}
+                </a>
+            `).join('');
+        }
+        
+        // ============================================
+        // CART FUNCTIONS
+        // ============================================
+        
+        function addToCart(productId) {
+            const product = PRODUCTS.find(p => p.id === productId);
+            if (!product) return;
+            
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    image: product.image,
+                    quantity: 1
+                });
+            }
+            
+            renderCart();
+            updateCartCount();
+            showToast(`${product.name} ditambahkan ke keranjang`);
+        }
+        
+        function updateQuantity(productId, change) {
+            const item = cart.find(i => i.id === productId);
+            if (!item) return;
+            
+            item.quantity += change;
+            
+            if (item.quantity <= 0) {
+                removeFromCart(productId);
+                return;
+            }
+            
+            renderCart();
+            updateCartCount();
+        }
+        
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            renderCart();
+            updateCartCount();
+            showToast('Produk dihapus dari keranjang');
+        }
+        
+        function checkout() {
+            if (cart.length === 0) {
+                showToast('Keranjang belanja kosong');
+                return;
+            }
+            
+            let message = `*Pesanan ${CONFIG.storeName}*\n\n*Detail Pesanan:*\n`;
+            
+            cart.forEach(item => {
+                const subtotal = item.price * item.quantity;
+                message += `- ${item.name}: ${item.quantity} x ${formatPrice(item.price)} = ${formatPrice(subtotal)}\n`;
+            });
+            
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            message += `\n*Total: ${formatPrice(total)}*\n\nMetode pembayaran akan diinformasikan setelah konfirmasi.`;
+            
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodedMessage}`;
+            
+            window.open(whatsappUrl, '_blank');
+        }
+        
+        // ============================================
+        // UI FUNCTIONS
+        // ============================================
+        
+        function openCart() {
+            if (cartSidebar && cartOverlay) {
+                cartSidebar.classList.add('open');
+                cartOverlay.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+        
+        function closeCart() {
+            if (cartSidebar && cartOverlay) {
+                cartSidebar.classList.remove('open');
+                cartOverlay.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+        }
+        
+        function openMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            if (mobileMenu) {
+                mobileMenu.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+        
+        function closeMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            if (mobileMenu) {
+                mobileMenu.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+        }
+        
+        // ============================================
+        // SCROLL ANIMATIONS
+        // ============================================
+        
+        function initScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        }
+        
+        // ============================================
+        // INITIALIZE APP
+        // ============================================
+        
+        function initApp() {
+            // Initialize DOM references
+            cartSidebar = document.getElementById('cartSidebar');
+            cartOverlay = document.getElementById('cartOverlay');
+            cartItems = document.getElementById('cartItems');
+            cartEmpty = document.getElementById('cartEmpty');
+            cartFooter = document.getElementById('cartFooter');
+            cartTotal = document.getElementById('cartTotal');
+            cartCount = document.getElementById('cartCount');
+            
+            // Set dynamic content from CONFIG
+            const navLogo = document.getElementById('navLogo');
+            const footerLogo = document.getElementById('footerLogo');
+            const navStoreName = document.getElementById('navStoreName');
+            const footerStoreName = document.getElementById('footerStoreName');
+            const heroTitle = document.getElementById('heroTitle');
+            const heroTagline = document.getElementById('heroTagline');
+            const footerDescription = document.getElementById('footerDescription');
+            const copyrightName = document.getElementById('copyrightName');
+            
+            if (navLogo) navLogo.src = CONFIG.logo;
+            if (footerLogo) footerLogo.src = CONFIG.logo;
+            if (navStoreName) navStoreName.textContent = CONFIG.storeName;
+            if (footerStoreName) footerStoreName.textContent = CONFIG.storeName;
+            if (heroTitle) heroTitle.textContent = CONFIG.storeName;
+            if (heroTagline) heroTagline.textContent = CONFIG.tagline;
+            if (footerDescription) footerDescription.textContent = CONFIG.description;
+            if (copyrightName) copyrightName.textContent = CONFIG.storeName;
+            
+            // Render components
+            renderProducts();
+            renderSocialLinks();
+            renderCart();
+            updateCartCount();
+            
+            // Event Listeners
+            const cartBtn = document.getElementById('cartBtn');
+            const closeCartBtn = document.getElementById('closeCart');
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            const startShopping = document.getElementById('startShopping');
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const closeMobileMenuBtn = document.getElementById('closeMobileMenu');
+            
+            if (cartBtn) cartBtn.addEventListener('click', openCart);
+            if (closeCartBtn) closeCartBtn.addEventListener('click', closeCart);
+            if (cartOverlay) cartOverlay.addEventListener('click', closeCart);
+            if (checkoutBtn) checkoutBtn.addEventListener('click', checkout);
+            if (startShopping) startShopping.addEventListener('click', () => {
+                closeCart();
+                document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+            });
+            if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', openMobileMenu);
+            if (closeMobileMenuBtn) closeMobileMenuBtn.addEventListener('click', closeMobileMenu);
+            
+            // Mobile menu links
+            document.querySelectorAll('.mobile-link').forEach(link => {
+                link.addEventListener('click', closeMobileMenu);
+            });
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeCart();
+                    closeMobileMenu();
+                }
+            });
+            
+            // Initialize scroll animations
+            initScrollAnimations();
+        }
+        
+        // Run when DOM is ready
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>
