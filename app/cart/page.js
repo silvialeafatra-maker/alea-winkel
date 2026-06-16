@@ -119,6 +119,7 @@ export default function CartPage() {
 
               {/* IMAGE */}
               <div className="w-20 h-24 flex-shrink-0 rounded-xl overflow-hidden bg-zinc-100">
+                console.log(item.image);
                 <img
                   src={item.image || "/placeholder.jpg"}
                   alt={item.name}

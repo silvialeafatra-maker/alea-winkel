@@ -11,11 +11,12 @@ export default function Home() {
   const product = products?.[0];
   const images = product?.images ?? [];
 
-  const [currentImage, setCurrentImage] = useState(0);
+  const [currentBanner, setCurrentBanner] = useState(0);
+const [currentImage, setCurrentImage] = useState(0);
   const banners = [
-  "/banner1.jpeg",
-  "/banner2.jpeg",
-  "/banner3.jpeg",
+  "/Banner1.jpeg",
+  "/Banner2.jpeg",
+  "/Banner3.jpeg",
 ];
   const startX = useRef(0);
   const isDragging = useRef(false);
@@ -29,6 +30,14 @@ export default function Home() {
 
     return () => clearInterval(interval);
   }, [images.length]);
+
+  useEffect(() => {
+  const interval = setInterval(() => {
+    setCurrentBanner((prev) => (prev + 1) % banners.length);
+  }, 4000);
+
+  return () => clearInterval(interval);
+}, []);
 
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     isDragging.current = true;
