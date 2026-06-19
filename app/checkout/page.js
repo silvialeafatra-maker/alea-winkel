@@ -5,24 +5,15 @@ import { useEffect, useState } from "react";
 export default function CheckoutPage() {
   const [cart, setCart] = useState([]);
   const [payment, setPayment] = useState("bank");
-  const [shipping, setShipping] = useState("Jawa Tengah");
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
-
-  const shippingRates = {
-  "Jawa Tengah": 20000,
-  "Jawa Barat": 25000,
-  "Jabodetabek": 25000,
-  "Jawa Timur": 25000,
-  "Sumatra": 35000,
-  "Kalimantan": 45000,
-  "Sulawesi": 55000,
-  "Bali & Nusa Tenggara": 55000,
-  "Maluku & Papua": 75000,
-};
-
-
+  const [destination, setDestination] = useState("");
+  const [destinationId, setDestinationId] = useState(null);
+  const [shippingCost, setShippingCost] = useState(0);
+  const [searchResults, setSearchResults] = useState([]);
+  const [loadingShipping, setLoadingShipping] = useState(false);
+  
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("cart") || "[]");
     setCart(data);
@@ -33,11 +24,62 @@ export default function CheckoutPage() {
     0
   );
 
-  const shippingCost = shippingRates[shipping] || 0;
+  const totalQty = cart.reduce(
+  (acc, item) => acc + (item.qty || 1),
+  0
+);
 
+const totalWeight = totalQty * 500;
+
+const searchDestination = async (keyword) => {
+  setDestination(keyword);
+  setDestinationId(null);
+  setShippingCost(0);
+
+  if (keyword.length < 3) {
+    setSearchResults([]);
+    return;
+  }
+
+  const res = await fetch(
+    `/api/search-destination?q=${keyword}`
+  );
+
+  const data = await res.json();
+
+  setSearchResults(data.data || []);
+};
+
+const calculateShipping = async (destinationId) => {
+  setLoadingShipping(true);
+
+  try {
+    const res = await fetch("/api/calculate-cost", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        destination: destinationId,
+        weight: totalWeight,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (data.data?.length) {
+      setShippingCost(data.data[0].cost);
+    }
+  } catch (error) {
+    console.error(error);
+  } finally {
+    setLoadingShipping(false);
+  }
+};
 const grandTotal = total + shippingCost;
 const whatsappMessage = encodeURIComponent(
-`🛒 ALEA WINKEL ORDER
+
+  `🛒 ALEA WINKEL ORDER
 
 👤 Name:
 ${fullName}
@@ -48,8 +90,8 @@ ${phone}
 📍 Address:
 ${address}
 
-🚚 Shipping:
-${shipping}
+🚚 Shipping Address:
+${destination}
 
 📦 Items:
 
@@ -78,7 +120,9 @@ ${payment === "bank" ? "Bank Transfer" : "Crypto Payment"}
 const isFormValid =
   fullName.trim() &&
   phone.trim() &&
-  address.trim();
+  address.trim() &&
+  destinationId &&
+  shippingCost > 0;
 
   const copyText = (text) => {
   navigator.clipboard.writeText(text);
@@ -130,22 +174,40 @@ const isFormValid =
   <h2 className="font-medium mb-4">
     Shipping Destination
   </h2>
+<input
+  type="text"
+  placeholder="Cari Kelurahan / Kecamatan / Kota"
+  value={destination}
+  onChange={(e) =>
+    searchDestination(e.target.value)
+  }
+  className="w-full border rounded-xl p-3"
+/>
+{loadingShipping && (
+  <p className="text-sm text-zinc-500 mt-2">
+    Calculating shipping cost...
+  </p>
+)}
 
-  <select
-    value={shipping}
-    onChange={(e) => setShipping(e.target.value)}
-    className="w-full border rounded-xl p-3"
-  >
-    <option>Jawa Tengah</option>
-    <option>Jawa Barat</option>
-    <option>Jabodetabek</option>
-    <option>Jawa Timur</option>
-    <option>Sumatra</option>
-    <option>Kalimantan</option>
-    <option>Sulawesi</option>
-    <option>Bali & Nusa Tenggara</option>
-    <option>Maluku & Papua</option>
-  </select>
+{searchResults.length > 0 && (
+  <div className="border rounded-xl mt-2 max-h-60 overflow-y-auto">
+    {searchResults.map((item) => (
+      <button
+        key={item.id}
+        type="button"
+        onClick={() => {
+  setDestination(item.label);
+  setDestinationId(item.id);
+  setSearchResults([]);
+  calculateShipping(item.id);
+}}
+        className="w-full text-left p-3 hover:bg-zinc-100 border-b"
+      >
+        {item.label}
+      </button>
+    ))}
+  </div>
+)}
 
   <p className="mt-4 text-sm text-zinc-500">
     Shipping via J&T Express
@@ -300,7 +362,10 @@ const isFormValid =
       Rp{total.toLocaleString("id-ID")}
     </span>
   </div>
-
+<div className="flex justify-between mb-2">
+  <span>Weight</span>
+  <span>{totalWeight} g</span>
+</div>
   <div className="flex justify-between mb-2">
     <span>Shipping</span>
     <span>
