@@ -119,13 +119,12 @@ export default function CartPage() {
 
               {/* IMAGE */}
               <div className="w-20 h-24 flex-shrink-0 rounded-xl overflow-hidden bg-zinc-100">
-                console.log(item.image);
-                <img
-                  src={item.image || "/placeholder.jpg"}
-                  alt={item.name}
-                  className="w-full h-full object-cover"
-                />
-              </div>
+  <img
+    src={item.image || "/placeholder.jpg"}
+    alt={item.name}
+    className="w-full h-full object-cover"
+  />
+</div>
 
               {/* CONTENT */}
               <div className="flex-1">
@@ -206,15 +205,10 @@ export default function CartPage() {
 
 {/* CHECKOUT BUTTON (PREMIUM CTA) */}
 <a
-  href={`https://wa.me/6287892550636?text=${whatsappMessage}`}
-  target="_blank"
-  rel="noopener noreferrer"
-  className="mt-5 w-full inline-flex items-center justify-center gap-2 bg-black text-white px-5 py-4 rounded-2xl font-medium tracking-wide hover:bg-zinc-800 hover:scale-[1.02] transition-all duration-300"
+  href="/checkout"
+  className="mt-5 w-full inline-flex items-center justify-center bg-black text-white px-5 py-4 rounded-2xl font-medium hover:bg-zinc-800 transition"
 >
-  <>
-  <FaWhatsapp className="text-lg" />
-  <span>Checkout via WhatsApp</span>
-</>
+  Proceed to Checkout
 </a>
 
 {/* SMALL NOTE */}
