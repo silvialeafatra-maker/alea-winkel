@@ -6,6 +6,10 @@ export default function CheckoutPage() {
   const [cart, setCart] = useState([]);
   const [payment, setPayment] = useState("bank");
   const [shipping, setShipping] = useState("Jawa Tengah");
+  const [fullName, setFullName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+
   const shippingRates = {
   "Jawa Tengah": 20000,
   "Jawa Barat": 25000,
@@ -32,12 +36,95 @@ export default function CheckoutPage() {
   const shippingCost = shippingRates[shipping] || 0;
 
 const grandTotal = total + shippingCost;
+const whatsappMessage = encodeURIComponent(
+`🛒 ALEA WINKEL ORDER
+
+👤 Name:
+${fullName}
+
+📱 WhatsApp:
+${phone}
+
+📍 Address:
+${address}
+
+🚚 Shipping:
+${shipping}
+
+📦 Items:
+
+${cart
+  .map(
+    (item) =>
+      `• ${item.name}
+  Size ${item.size} × ${item.qty || 1}`
+  )
+  .join("\n\n")}
+
+💰 Product Total:
+Rp${total.toLocaleString("id-ID")}
+
+🚛 Shipping Cost:
+Rp${shippingCost.toLocaleString("id-ID")}
+
+✅ Grand Total:
+Rp${grandTotal.toLocaleString("id-ID")}
+
+💳 Payment Method:
+${payment === "bank" ? "Bank Transfer" : "Crypto Payment"}
+`
+);
+
+const isFormValid =
+  fullName.trim() &&
+  phone.trim() &&
+  address.trim();
+
+  const copyText = (text) => {
+  navigator.clipboard.writeText(text);
+  alert("Copied!");
+};
 
   return (
     <main className="min-h-screen bg-white text-black p-6 max-w-3xl mx-auto">
       <h1 className="text-4xl font-semibold mb-2">
         Checkout
       </h1>
+      <div className="border rounded-3xl p-6 mt-6 mb-6">
+
+  <h2 className="font-medium mb-4">
+    Customer Information
+  </h2>
+
+  <div className="space-y-4">
+
+    <input
+      type="text"
+      placeholder="Full Name"
+      value={fullName}
+      onChange={(e) => setFullName(e.target.value)}
+      className="w-full border rounded-xl p-3"
+    />
+
+    <input
+      type="text"
+      placeholder="WhatsApp Number"
+      value={phone}
+      onChange={(e) => setPhone(e.target.value)}
+      className="w-full border rounded-xl p-3"
+    />
+
+    <textarea
+      placeholder="Full Address"
+      value={address}
+      onChange={(e) => setAddress(e.target.value)}
+      rows={4}
+      className="w-full border rounded-xl p-3"
+    />
+
+  </div>
+
+</div>
       <div className="border rounded-3xl p-6 mb-6">
 
   <h2 className="font-medium mb-4">
@@ -126,9 +213,20 @@ const grandTotal = total + shippingCost;
                 Account Number
               </p>
 
-              <p className="text-2xl font-bold">
-                3820192132
-              </p>
+              <div className="flex items-center justify-between mt-2">
+
+             <p className="text-2xl font-bold">
+               3820192132
+            </p>
+
+            <button
+            onClick={() => copyText("3820192132")}
+            className="px-3 py-2 text-sm border rounded-lg hover:bg-black hover:text-white transition"
+            >
+             Copy
+            </button>
+
+         </div>
             </div>
           </>
         )}
@@ -146,9 +244,22 @@ const grandTotal = total + shippingCost;
                   USDT (TRC20)
                 </p>
 
-                <p className="font-mono break-all">
-                  TVtUcfu3yoAVXSeBsyoumMe3L46jiLQMei
-                </p>
+                <div className="flex items-start gap-3">
+
+             <p className="font-mono break-all flex-1">
+                 TVtUcfu3yoAVXSeBsyoumMe3L46jiLQMei
+             </p>
+
+             <button
+             onClick={() =>
+             copyText("TVtUcfu3yoAVXSeBsyoumMe3L46jiLQMei")
+             }
+               className="px-3 py-2 text-sm border rounded-lg hover:bg-black hover:text-white transition"
+             >
+              Copy
+             </button>
+
+             </div>
               </div>
 
               <div>
@@ -156,9 +267,22 @@ const grandTotal = total + shippingCost;
                   Bitcoin (BTC)
                 </p>
 
-                <p className="font-mono break-all">
-                  bc1q23gzvpv75mmuchnfa3kewlltjr73arcys37z50
-                </p>
+                <div className="flex items-start gap-3">
+
+             <p className="font-mono break-all flex-1">
+                bc1q23gzvpv75mmuchnfa3kewlltjr73arcys37z50
+             </p>
+
+             <button
+              onClick={() =>
+               copyText("bc1q23gzvpv75mmuchnfa3kewlltjr73arcys37z50")
+           }
+             className="px-3 py-2 text-sm border rounded-lg hover:bg-black hover:text-white transition"
+            >
+              Copy
+             </button>
+
+             </div>
               </div>
 
             </div>
@@ -168,7 +292,7 @@ const grandTotal = total + shippingCost;
       </div>
 
       {/* TOTAL */}
-      <div className="mt-8 border rounded-3xl p-6 bg-zinc-50">
+<div className="mt-8 border rounded-3xl p-6 bg-zinc-50">
 
   <div className="flex justify-between mb-2">
     <span>Products</span>
@@ -195,6 +319,19 @@ const grandTotal = total + shippingCost;
 
 </div>
 
-    </main>
+<a
+  href={`https://wa.me/6287892550636?text=${whatsappMessage}`}
+  target="_blank"
+  rel="noopener noreferrer"
+  className={`mt-6 w-full inline-flex items-center justify-center px-5 py-4 rounded-2xl font-medium transition ${
+    isFormValid
+      ? "bg-black text-white hover:bg-zinc-800"
+      : "bg-zinc-300 text-zinc-500 pointer-events-none"
+  }`}
+>
+  Confirm Order
+</a>
+
+</main>
   );
 }
