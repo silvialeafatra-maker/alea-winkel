@@ -5,6 +5,19 @@ import { useEffect, useState } from "react";
 export default function CheckoutPage() {
   const [cart, setCart] = useState([]);
   const [payment, setPayment] = useState("bank");
+  const [shipping, setShipping] = useState("Jawa Tengah");
+  const shippingRates = {
+  "Jawa Tengah": 20000,
+  "Jawa Barat": 25000,
+  "Jabodetabek": 25000,
+  "Jawa Timur": 25000,
+  "Sumatra": 35000,
+  "Kalimantan": 45000,
+  "Sulawesi": 55000,
+  "Bali & Nusa Tenggara": 55000,
+  "Maluku & Papua": 75000,
+};
+
 
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("cart") || "[]");
@@ -16,12 +29,42 @@ export default function CheckoutPage() {
     0
   );
 
+  const shippingCost = shippingRates[shipping] || 0;
+
+const grandTotal = total + shippingCost;
+
   return (
     <main className="min-h-screen bg-white text-black p-6 max-w-3xl mx-auto">
       <h1 className="text-4xl font-semibold mb-2">
         Checkout
       </h1>
+      <div className="border rounded-3xl p-6 mb-6">
 
+  <h2 className="font-medium mb-4">
+    Shipping Destination
+  </h2>
+
+  <select
+    value={shipping}
+    onChange={(e) => setShipping(e.target.value)}
+    className="w-full border rounded-xl p-3"
+  >
+    <option>Jawa Tengah</option>
+    <option>Jawa Barat</option>
+    <option>Jabodetabek</option>
+    <option>Jawa Timur</option>
+    <option>Sumatra</option>
+    <option>Kalimantan</option>
+    <option>Sulawesi</option>
+    <option>Bali & Nusa Tenggara</option>
+    <option>Maluku & Papua</option>
+  </select>
+
+  <p className="mt-4 text-sm text-zinc-500">
+    Shipping via J&T Express
+  </p>
+
+</div>
       <p className="text-zinc-500 mb-8">
         Choose your preferred payment method.
       </p>
@@ -126,14 +169,31 @@ export default function CheckoutPage() {
 
       {/* TOTAL */}
       <div className="mt-8 border rounded-3xl p-6 bg-zinc-50">
-        <div className="text-sm text-zinc-500">
-          Total Payment
-        </div>
 
-        <div className="text-3xl font-bold">
-          Rp{total.toLocaleString("id-ID")}
-        </div>
-      </div>
+  <div className="flex justify-between mb-2">
+    <span>Products</span>
+    <span>
+      Rp{total.toLocaleString("id-ID")}
+    </span>
+  </div>
+
+  <div className="flex justify-between mb-2">
+    <span>Shipping</span>
+    <span>
+      Rp{shippingCost.toLocaleString("id-ID")}
+    </span>
+  </div>
+
+  <hr className="my-4" />
+
+  <div className="flex justify-between text-xl font-bold">
+    <span>Total</span>
+    <span>
+      Rp{grandTotal.toLocaleString("id-ID")}
+    </span>
+  </div>
+
+</div>
 
     </main>
   );
