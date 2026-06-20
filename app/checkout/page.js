@@ -396,7 +396,15 @@ const isFormValid =
 </div>
 
 <a
-  href={`/payment?total=${grandTotal}&payment=${payment}`}
+  href={`/payment?
+total=${grandTotal}
+&payment=${payment}
+&name=${encodeURIComponent(fullName)}
+&phone=${encodeURIComponent(phone)}
+&destination=${encodeURIComponent(destination)}
+&address=${encodeURIComponent(address)}
+&items=${encodeURIComponent(JSON.stringify(cart))}
+`}
   className={`mt-6 w-full inline-flex items-center justify-center px-5 py-4 rounded-2xl font-medium transition ${
     isFormValid
       ? "bg-black text-white hover:bg-zinc-800"

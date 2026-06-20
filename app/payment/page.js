@@ -1,29 +1,127 @@
 "use client";
-
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 function PaymentContent() {
+
   const searchParams = useSearchParams();
 
   const total = searchParams.get("total") || 0;
   const payment = searchParams.get("payment") || "bank";
+  const name = searchParams.get("name") || "";
+  const phone = searchParams.get("phone") || "";
+  const destination = searchParams.get("destination") || "";
+  const address = searchParams.get("address") || "";
+  const items = JSON.parse(
+  decodeURIComponent(
+    searchParams.get("items") || "[]"
+  )
+);
+  const [btcPrice, setBtcPrice] = useState(null);
+  const [usdtPrice, setUsdtPrice] = useState(null);
+  useEffect(() => {
+  const fetchPrices = async () => {
+    try {
+      const res = await fetch(
+        "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,tether&vs_currencies=idr"
+      );
 
+      const data = await res.json();
+
+      setBtcPrice(data.bitcoin.idr);
+      setUsdtPrice(data.tether.idr);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  fetchPrices();
+}, []);
+
+const btcAmount =
+  btcPrice
+    ? Number(total) / btcPrice
+    : 0;
+
+const usdtAmount =
+  usdtPrice
+    ? Number(total) / usdtPrice
+    : 0;
+
+  const [copied, setCopied] = useState(false);
+  const [copiedUsdt, setCopiedUsdt] = useState(false);
+  const [copiedBtc, setCopiedBtc] = useState(false);
   const whatsappMessage = encodeURIComponent(`
-Hello Alea Winkel,
+🛒 PAYMENT CONFIRMATION
 
-I have completed the payment.
+Name:
+${name}
+
+WhatsApp:
+${phone}
+
+Destination:
+${destination}
+
+Address:
+${address}
+
+Items:
+
+${items
+  .map(
+    (item) =>
+      `• ${item.name}
+Size ${item.size}
+Qty ${item.qty || 1}`
+  )
+  .join("\n\n")}
 
 Payment Method:
-${payment === "bank" ? "Bank Transfer" : "Crypto Payment"}
+${payment === "bank" ? "Bank Transfer" : "Crypto"}
 
 Total:
 Rp${Number(total).toLocaleString("id-ID")}
+
+I have completed the payment.
 
 Please verify my payment.
 
 Thank you.
 `);
+ 
+
+const copyAccount = () => {
+  navigator.clipboard.writeText("3820192132");
+  setCopied(true);
+
+  setTimeout(() => {
+    setCopied(false);
+  }, 2000);
+};
+const copyUsdt = () => {
+  navigator.clipboard.writeText(
+    "TVtUcfu3yoAVXSeBsyoumMe3L46jiLQMei"
+  );
+
+  setCopiedUsdt(true);
+
+  setTimeout(() => {
+    setCopiedUsdt(false);
+  }, 2000);
+};
+
+const copyBtc = () => {
+  navigator.clipboard.writeText(
+    "bc1q23gzvpv75mmuchnfa3kewlltjr73arcys37z50"
+  );
+
+  setCopiedBtc(true);
+
+  setTimeout(() => {
+    setCopiedBtc(false);
+  }, 2000);
+};
 
   return (
     <main className="min-h-screen bg-white text-black p-6 max-w-2xl mx-auto">
@@ -60,31 +158,96 @@ Thank you.
               </p>
 
               <button
-                onClick={() =>
-                  navigator.clipboard.writeText("3820192132")
-                }
-                className="px-3 py-2 border rounded-lg"
-              >
-                Copy
-              </button>
+             onClick={copyAccount}
+             className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${
+              copied
+               ? "bg-green-600 text-white scale-105"
+              : "bg-black text-white hover:bg-zinc-800"
+               }`}
+             >
+             {copied ? "Copied ✓" : "Copy"}
+             </button>
+            
             </div>
-
             <p className="mt-3">
               Muhammad Dani Alfariza
             </p>
           </>
         ) : (
           <>
-            <h2 className="font-medium mb-4">
-              Crypto Payment
-            </h2>
+          
+  <h2 className="font-medium mb-4">
+    Crypto Payment
+  </h2>
 
-            <p>USDT (TRC20)</p>
+  <div className="bg-zinc-50 p-4 rounded-2xl">
 
-            <p className="break-all font-mono">
-              TVtUcfu3yoAVXSeBsyoumMe3L46jiLQMei
-            </p>
-          </>
+    <p className="text-sm text-zinc-500">
+      USDT (TRC20)
+    </p>
+
+    <p className="text-xl font-bold mt-1">
+      {usdtAmount.toFixed(2)} USDT
+    </p>
+
+    <p className="text-sm text-zinc-500 mt-2">
+      Rate: Rp
+      {usdtPrice?.toLocaleString("id-ID")}
+    </p>
+
+    <div className="flex items-start gap-3 mt-4">
+  <p className="break-all font-mono flex-1">
+    TVtUcfu3yoAVXSeBsyoumMe3L46jiLQMei
+  </p>
+
+  <button
+    onClick={copyUsdt}
+    className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${
+      copiedUsdt
+        ? "bg-green-600 text-white"
+        : "bg-black text-white hover:bg-zinc-800"
+    }`}
+  >
+    {copiedUsdt ? "Copied ✓" : "Copy"}
+  </button>
+</div>
+
+  </div>
+
+  <div className="bg-zinc-50 p-4 rounded-2xl mt-4">
+
+    <p className="text-sm text-zinc-500">
+      Bitcoin (BTC)
+    </p>
+
+    <p className="text-xl font-bold mt-1">
+      {btcAmount.toFixed(8)} BTC
+    </p>
+
+    <p className="text-sm text-zinc-500 mt-2">
+      Rate: Rp
+      {btcPrice?.toLocaleString("id-ID")}
+    </p>
+
+    <div className="flex items-start gap-3 mt-4">
+  <p className="break-all font-mono flex-1">
+    bc1q23gzvpv75mmuchnfa3kewlltjr73arcys37z50
+  </p>
+
+  <button
+    onClick={copyBtc}
+    className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${
+      copiedBtc
+        ? "bg-green-600 text-white"
+        : "bg-black text-white hover:bg-zinc-800"
+    }`}
+  >
+    {copiedBtc ? "Copied ✓" : "Copy"}
+  </button>
+</div>
+
+  </div>
+</>
         )}
       </div>
 
