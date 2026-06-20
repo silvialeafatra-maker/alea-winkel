@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 export default function CheckoutPage() {
   const [cart, setCart] = useState([]);
@@ -14,6 +14,7 @@ export default function CheckoutPage() {
   const [shippingCost, setShippingCost] = useState(0);
   const [searchResults, setSearchResults] = useState([]);
   const [loadingShipping, setLoadingShipping] = useState(false);
+  const debounceRef = useRef(null);
   
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("cart") || "[]");
@@ -32,23 +33,33 @@ export default function CheckoutPage() {
 
 const totalWeight = totalQty * 500;
 
-const searchDestination = async (keyword) => {
+const searchDestination = (keyword) => {
   setDestination(keyword);
   setDestinationId(null);
   setShippingCost(0);
+
+  if (debounceRef.current) {
+    clearTimeout(debounceRef.current);
+  }
 
   if (keyword.length < 3) {
     setSearchResults([]);
     return;
   }
 
-  const res = await fetch(
-    `/api/search-destination?q=${keyword}`
-  );
+  debounceRef.current = setTimeout(async () => {
+    try {
+      const res = await fetch(
+        `/api/search-destination?q=${keyword}`
+      );
 
-  const data = await res.json();
+      const data = await res.json();
 
-  setSearchResults(data.data || []);
+      setSearchResults(data.data || []);
+    } catch (error) {
+      console.error(error);
+    }
+  }, 800);
 };
 
 const calculateShipping = async (destinationId) => {
