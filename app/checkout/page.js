@@ -7,6 +7,7 @@ export default function CheckoutPage() {
   const [payment, setPayment] = useState("bank");
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [destination, setDestination] = useState("");
   const [destinationId, setDestinationId] = useState(null);
@@ -87,6 +88,9 @@ ${fullName}
 📱 WhatsApp:
 ${phone}
 
+Email:
+${email || "-"}
+
 📍 Address:
 ${address}
 
@@ -158,13 +162,13 @@ const isFormValid =
       className="w-full border rounded-xl p-3"
     />
 
-    <textarea
-      placeholder="Full Address"
-      value={address}
-      onChange={(e) => setAddress(e.target.value)}
-      rows={4}
-      className="w-full border rounded-xl p-3"
-    />
+   <input
+  type="email"
+  placeholder="Email (Optional)"
+  value={email}
+  onChange={(e) => setEmail(e.target.value)}
+  className="w-full border rounded-xl p-3"
+/>
 
   </div>
 
@@ -172,11 +176,11 @@ const isFormValid =
       <div className="border rounded-3xl p-6 mb-6">
 
   <h2 className="font-medium mb-4">
-    Shipping Destination
-  </h2>
+  City & District
+</h2>
 <input
   type="text"
-  placeholder="Cari Kelurahan / Kecamatan / Kota"
+  placeholder="Search your city or district"
   value={destination}
   onChange={(e) =>
     searchDestination(e.target.value)
@@ -209,9 +213,20 @@ const isFormValid =
   </div>
 )}
 
-  <p className="mt-4 text-sm text-zinc-500">
-    Shipping via J&T Express
-  </p>
+</div>
+
+<div className="border rounded-3xl p-6 mb-6">
+  <h2 className="font-medium mb-4">
+    Address Details
+  </h2>
+
+  <textarea
+    placeholder="Street address, house number, RT/RW, landmark"
+    value={address}
+    onChange={(e) => setAddress(e.target.value)}
+    rows={4}
+    className="w-full border rounded-xl p-3"
+  />
 
 </div>
       <p className="text-zinc-500 mb-8">
@@ -362,10 +377,6 @@ const isFormValid =
       Rp{total.toLocaleString("id-ID")}
     </span>
   </div>
-<div className="flex justify-between mb-2">
-  <span>Weight</span>
-  <span>{totalWeight} g</span>
-</div>
   <div className="flex justify-between mb-2">
     <span>Shipping</span>
     <span>
