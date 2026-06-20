@@ -1,4 +1,5 @@
 import Navbar from "./components/Navbar";
+import WhatsAppButton from "./components/WhatsAppButton";
 import "./globals.css";
 import { Abril_Fatface } from "next/font/google";
 
@@ -6,24 +7,11 @@ const abril = Abril_Fatface({
   subsets: ["latin"],
   weight: "400",
 });
+
 export const metadata = {
   title: "ALEA Winkel | Fashion Store",
   description:
     "ALEA Winkel - Simple • Comfortable • Everyday Wear.",
-  keywords: [
-    "jeans",
-    "celana jeans",
-    "celana denim",
-    "jeans vintage",
-    "celana vintage",
-    "jeans gombrong",
-    "denim",
-    "baggy jeans",
-    "fashion pria",
-    "fashion wanita",
-    "ALEA Winkel",
-  ],
-  authors: [{ name: "ALEA Winkel" }],
 };
 
 export default function RootLayout({
@@ -36,6 +24,7 @@ export default function RootLayout({
       <body>
         <Navbar />
         {children}
+        <WhatsAppButton />
       </body>
     </html>
   );

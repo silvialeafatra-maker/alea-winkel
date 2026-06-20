@@ -1,13 +1,17 @@
 "use client";
 import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 function PaymentContent() {
 
   const searchParams = useSearchParams();
-
+  const router = useRouter();
   const total = searchParams.get("total") || 0;
   const payment = searchParams.get("payment") || "bank";
+  const orderId =
+  "AW-" +
+  Date.now().toString().slice(-8);
   const name = searchParams.get("name") || "";
   const phone = searchParams.get("phone") || "";
   const destination = searchParams.get("destination") || "";
@@ -54,6 +58,9 @@ const usdtAmount =
   const whatsappMessage = encodeURIComponent(`
 🛒 PAYMENT CONFIRMATION
 
+Order ID:
+${orderId}
+
 Name:
 ${name}
 
@@ -69,6 +76,8 @@ ${address}
 Items:
 
 ${items
+
+
   .map(
     (item) =>
       `• ${item.name}
@@ -138,6 +147,16 @@ const copyBtc = () => {
 
         <div className="flex justify-between mb-4">
           <span>Total Payment</span>
+
+        <div className="bg-zinc-50 border rounded-2xl p-4 mb-6">
+           <p className="text-sm text-zinc-500">
+               Order ID
+              </p>
+
+                <p className="font-bold text-lg">
+                 {orderId}
+             </p>
+        </div>
 
           <span className="font-bold text-xl">
             Rp{Number(total).toLocaleString("id-ID")}
@@ -251,14 +270,21 @@ const copyBtc = () => {
         )}
       </div>
 
-      <a
-        href={`https://wa.me/6287892550636?text=${whatsappMessage}`}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mt-8 w-full inline-flex items-center justify-center px-5 py-4 rounded-2xl bg-black text-white hover:bg-zinc-800 transition"
-      >
-        Confirm Payment
-      </a>
+      <button
+  onClick={() => {
+    localStorage.removeItem("cart");
+
+    window.open(
+      `https://wa.me/6287892550636?text=${whatsappMessage}`,
+      "_blank"
+    );
+
+    router.push("/thank-you");
+  }}
+  className="mt-8 w-full inline-flex items-center justify-center px-5 py-4 rounded-2xl bg-black text-white hover:bg-zinc-800 transition"
+>
+  Confirm Payment
+</button>
 
     </main>
   );

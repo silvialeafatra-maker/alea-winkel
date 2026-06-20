@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { FaWhatsapp } from "react-icons/fa";
+import { FaShieldAlt } from "react-icons/fa";
+import { FaTruck } from "react-icons/fa";
 
 export default function CartPage() {
   const [cart, setCart] = useState([]);
@@ -178,7 +179,38 @@ export default function CartPage() {
             </div>
           ))}
         </div>
+       {/* TRUST BADGES */}
+<div className="mt-10 grid md:grid-cols-2 border border-zinc-200 rounded-3xl overflow-hidden">
 
+  <div className="p-8 text-center bg-zinc-50 border-b md:border-b-0 md:border-r border-zinc-200">
+
+    <FaShieldAlt className="mx-auto text-3xl text-black mb-4" />
+
+    <h3 className="font-medium">
+      Secure Checkout
+    </h3>
+
+    <p className="text-sm text-zinc-500 mt-1">
+      Safe payment via Bank Transfer & Crypto
+    </p>
+
+  </div>
+
+  <div className="p-10 text-center bg-zinc-50">
+
+    <FaTruck className="mx-auto text-3xl text-black mb-4" />
+
+    <h3 className="font-medium">
+      Fast Shipping
+    </h3>
+
+    <p className="text-sm text-zinc-500 mt-1">
+      Delivered with J&T Express
+    </p>
+
+  </div>
+
+</div>
         {/* TOTAL (PREMIUM CARD) */}
 <div className="mt-10 p-6 border border-zinc-200 rounded-3xl bg-zinc-50">
 

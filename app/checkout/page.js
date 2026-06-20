@@ -135,6 +135,7 @@ ${payment === "bank" ? "Bank Transfer" : "Crypto Payment"}
 const isFormValid =
   fullName.trim() &&
   phone.trim() &&
+  email.trim() &&
   address.trim() &&
   destinationId &&
   shippingCost > 0;
@@ -142,6 +143,26 @@ const isFormValid =
   const copyText = (text) => {
   navigator.clipboard.writeText(text);
   alert("Copied!");
+};
+const handleContinuePayment = async () => {
+  try {
+    await fetch("/api/send-order-email", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        fullName,
+        total: grandTotal,
+        items: cart,
+      }),
+    });
+  } catch (error) {
+    console.error(error);
+  }
+
+  window.location.href = `/payment?total=${grandTotal}&payment=${payment}&name=${encodeURIComponent(fullName)}&phone=${encodeURIComponent(phone)}&destination=${encodeURIComponent(destination)}&address=${encodeURIComponent(address)}&items=${encodeURIComponent(JSON.stringify(cart))}`;
 };
 
   return (
@@ -175,10 +196,11 @@ const isFormValid =
 
    <input
   type="email"
-  placeholder="Email (Optional)"
+  placeholder="Email Address"
   value={email}
   onChange={(e) => setEmail(e.target.value)}
   className="w-full border rounded-xl p-3"
+  required
 />
 
   </div>
@@ -406,16 +428,8 @@ const isFormValid =
 
 </div>
 
-<a
-  href={`/payment?
-total=${grandTotal}
-&payment=${payment}
-&name=${encodeURIComponent(fullName)}
-&phone=${encodeURIComponent(phone)}
-&destination=${encodeURIComponent(destination)}
-&address=${encodeURIComponent(address)}
-&items=${encodeURIComponent(JSON.stringify(cart))}
-`}
+<button
+  onClick={handleContinuePayment}
   className={`mt-6 w-full inline-flex items-center justify-center px-5 py-4 rounded-2xl font-medium transition ${
     isFormValid
       ? "bg-black text-white hover:bg-zinc-800"
@@ -423,7 +437,7 @@ total=${grandTotal}
   }`}
 >
   Continue to Payment
-</a>
+</button>
 
 </main>
   );

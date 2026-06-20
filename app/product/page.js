@@ -75,8 +75,8 @@ useEffect(() => {
         <div>
           <div className="relative w-full h-[500px] border border-gray-200 rounded-2xl overflow-hidden shadow-lg">
             <div className="absolute top-4 left-4 z-10 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
-  -72%
-</div>
+                 -72%
+              </div>
             <Image
               src={images[mainImage]}
               alt="product"
@@ -117,13 +117,30 @@ useEffect(() => {
           <p className="text-gray-600 mt-2">
             Simple • Comfortable • Everyday Wear
           </p>
+          
+         <div className="mt-5">
+  <p className="text-sm text-zinc-400 line-through">
+    Rp{product?.originalPrice?.toLocaleString("id-ID")}
+  </p>
 
+  <div className="flex items-center gap-3 mt-1">
+    <p className="text-4xl font-semibold text-zinc-900">
+      Rp{product?.price?.toLocaleString("id-ID")}
+    </p>
+
+    <span className="text-xs bg-red-500 text-white px-2 py-1 rounded-full">
+      SAVE 72%
+    </span>
+  </div>
+  </div>
           {/* SIZE */}
 <div className="mt-6">
   <h3 className="font-semibold mb-3">
     Pilih Ukuran
   </h3>
-
+<p className="text-sm text-zinc-500 mb-4">
+  Refer to the guide below to find your ideal fit.
+</p>
   <div className="flex flex-wrap gap-2">
   {[27, 28, 29, 30, 31, 32, 33, 34].map((size) => (
     <button
@@ -139,22 +156,67 @@ useEffect(() => {
     </button>
   ))}
 </div>
-</div>
+<div className="mt-6 border border-zinc-200 rounded-2xl p-5 bg-white">
 
-  <div className="mt-5">
-  <p className="text-sm text-zinc-400 line-through">
-    Rp{product?.originalPrice?.toLocaleString("id-ID")}
-  </p>
+  <div className="flex items-center justify-between mb-4">
+    <h3 className="font-semibold text-lg">
+      Size Guide
+    </h3>
 
-  <div className="flex items-center gap-3 mt-1">
-    <p className="text-4xl font-semibold text-zinc-900">
-      Rp{product?.price?.toLocaleString("id-ID")}
-    </p>
-
-    <span className="text-xs bg-red-500 text-white px-2 py-1 rounded-full">
-      SAVE 72%
+    <span className="text-xs bg-black text-white px-3 py-1 rounded-full">
+      Loose Fit
     </span>
   </div>
+
+  <div className="space-y-3">
+
+    <div className="flex justify-between border-b pb-2">
+      <span>Size 27</span>
+      <span>39-43 kg</span>
+    </div>
+
+    <div className="flex justify-between border-b pb-2">
+      <span>Size 28</span>
+      <span>44-47 kg</span>
+    </div>
+
+    <div className="flex justify-between border-b pb-2">
+      <span>Size 29</span>
+      <span>48-51 kg</span>
+    </div>
+
+    <div className="flex justify-between border-b pb-2">
+      <span>Size 30</span>
+      <span>52-55 kg</span>
+    </div>
+
+    <div className="flex justify-between border-b pb-2">
+      <span>Size 31</span>
+      <span>56-59 kg</span>
+    </div>
+
+    <div className="flex justify-between border-b pb-2">
+      <span>Size 32</span>
+      <span>60-64 kg</span>
+    </div>
+
+    <div className="flex justify-between border-b pb-2">
+      <span>Size 33</span>
+      <span>65-69 kg</span>
+    </div>
+
+    <div className="flex justify-between">
+      <span>Size 34</span>
+      <span>70-74 kg</span>
+    </div>
+
+  </div>
+
+  <p className="text-xs text-zinc-500 mt-4">
+    Model loose fit / oversize. If you prefer a more relaxed fit,
+    consider choosing one size up.
+  </p>
+</div>
 </div>
 <div className="mt-4 flex flex-wrap gap-2 text-xs">
   <span className="px-3 py-1 bg-zinc-100 rounded-full">
@@ -170,35 +232,36 @@ useEffect(() => {
   </span>
   
 </div>
-          <div className="mt-8 space-y-3">
+          <button
+  onClick={addToCart}
+  className="
+    fixed
+    bottom-5
+    left-5
+    right-20
 
-            <button
-              onClick={addToCart}
-              className="w-full bg-black text-white py-4 rounded-2xl font-medium tracking-wide hover:bg-zinc-800 transition-all"
-            >
-              Add to Cart
-            </button>
+    z-50
 
-            <button
-  onClick={() => {
-  if (!selectedSize) {
-    setShowSizeModal(true);
-    return;
-  }
+    bg-black
+    text-white
 
-  window.open(
-    `https://wa.me/6287892550636?text=Halo saya mau beli Jeans Baggy Whisker - Black ukuran ${selectedSize}`,
-    "_blank"
-  );
-}}
-  className="w-full bg-white text-black border border-black py-4 rounded-2xl font-medium hover:bg-black hover:text-white transition-all"
+    py-4
+    rounded-2xl
+
+    font-medium
+    tracking-wide
+
+    shadow-xl
+
+    hover:bg-zinc-800
+    transition-all
+  "
 >
-  Buy Now
+  Add to Cart
 </button>
 
           </div>
-        </div>
-
+       <div className="h-24"></div>
       </div>
       {toast && (
   <div className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-black text-white px-4 py-2 rounded-full shadow-lg text-sm font-semibold z-[9999]">
@@ -230,7 +293,7 @@ useEffect(() => {
       >
         OK
       </button>
-
+     
     </div>
   </div>
 )}
