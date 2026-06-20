@@ -396,16 +396,14 @@ const isFormValid =
 </div>
 
 <a
-  href={`https://wa.me/6287892550636?text=${whatsappMessage}`}
-  target="_blank"
-  rel="noopener noreferrer"
+  href={`/payment?total=${grandTotal}&payment=${payment}`}
   className={`mt-6 w-full inline-flex items-center justify-center px-5 py-4 rounded-2xl font-medium transition ${
     isFormValid
       ? "bg-black text-white hover:bg-zinc-800"
       : "bg-zinc-300 text-zinc-500 pointer-events-none"
   }`}
 >
-  Confirm Order
+  Continue to Payment
 </a>
 
 </main>
