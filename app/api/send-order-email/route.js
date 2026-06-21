@@ -40,22 +40,34 @@ export async function POST(req) {
   ">
 
     <div style="
-  background:#000;
-  padding:30px;
+  padding:40px 30px 30px 30px;
   text-align:center;
+  border-bottom:1px solid #e5e5e5;
 ">
 
   <img
-    src="https://alea-winkel.vercel.app/AleaLogoWhite.png"
-    width="180"
+    src="https://alea-winkel.vercel.app/AleaLogo.png"
+    width="55"
     alt="ALEA Winkel"
-    style="display:block;margin:auto;"
+    style="display:block;margin:0 auto;"
   />
 
+  <h1 style="
+    margin:14px 0 6px 0;
+    font-size:28px;
+    font-weight:700;
+    color:#111;
+    letter-spacing:0.5px;
+  ">
+    ALEA Winkel
+  </h1>
+
   <p style="
-    margin-top:12px;
-    color:#d4d4d4;
-    font-size:14px;
+    margin:0;
+    color:#777;
+    font-size:13px;
+    letter-spacing:3px;
+    text-transform:uppercase;
   ">
     Premium Fashion Store
   </p>
