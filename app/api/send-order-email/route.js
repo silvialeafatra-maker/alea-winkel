@@ -68,38 +68,40 @@ if (error) {
   ">
 
     <div style="
-  padding:20px 30px 20px 30px;
+  padding:25px 30px;
   text-align:center;
   border-bottom:1px solid #e5e5e5;
 ">
 
   <img
-    src="https://alea-winkel.vercel.app/AleaLogoBlack.png"
-    width="60"
-    alt="ALEA Winkel"
-    style="display:block;margin:0 auto;"
-  />
+  src="https://alea-winkel.vercel.app/AleaLogoBlack1.png"
+  width="140"
+  alt="ALEA Winkel"
+  style="
+    display:block;
+    margin:0 auto;
+  "
+/>
 
-  <h1 style="
-  margin-top:8px;
-  margin-bottom:2px;
-  font-size:14px;
-  font-weight:600;
-  color:white;
-  letter-spacing:1px;
+<h1 style="
+  margin:2px 0 0 0;
+  font-size:22px;
+  font-weight:700;
+  line-height:1;
+  color:#000;
 ">
-    ALEA Winkel
-  </h1>
+  ALEA Winkel
+</h1>
 
-  <p style="
-    margin:0;
-    color:#888;
-    font-size:9px;
-    letter-spacing:2px;
-    text-transform:uppercase;
-  ">
-    Premium Fashion Store
-  </p>
+<p style="
+  margin:4px 0 0 0;
+  color:#888;
+  font-size:10px;
+  letter-spacing:4px;
+  text-transform:uppercase;
+">
+  Premium Fashion Store
+</p>
 
 </div>
 
