@@ -47,7 +47,7 @@ export async function POST(req) {
 
       <img
         src="https://aleawinkel.store/AleaLogoBlack.png"
-        width="50"
+        width="90"
       />
 
       <h1 style="
