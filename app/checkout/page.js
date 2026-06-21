@@ -152,16 +152,17 @@ const handleContinuePayment = async () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-  email,
-  fullName,
-  phone,
-  address,
-  destination,
-  total: grandTotal,
-  shippingCost,
-  payment,
-  items: cart,
-}),
+        orderNumber: `AW-${Date.now()}`,
+        email,
+        fullName,
+        phone,
+        address,
+        destination,
+        total: grandTotal,
+        shippingCost,
+        payment,
+        items: cart,
+       }),
     });
 
     const result = await response.json();

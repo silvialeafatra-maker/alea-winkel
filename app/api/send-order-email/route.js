@@ -5,6 +5,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export async function POST(req) {
   try {
     const {
+  orderNumber,    
   email,
   fullName,
   phone,
@@ -29,7 +30,7 @@ export async function POST(req) {
 
     const data = await resend.emails.send({
       from: "ALEA Winkel <noreply@aleawinkel.store>",
-      to: email,
+      to: [email, "aleawinkel@gmail.com"],
       subject: "ALEA Winkel • Complete Your Payment",
 
       html: `
@@ -52,7 +53,7 @@ export async function POST(req) {
 
   <img
     src="https://alea-winkel.vercel.app/AleaLogoWhite.png"
-    width="250"
+    width="180"
     alt="ALEA Winkel"
     style="display:block;margin:0 auto;"
   />
@@ -88,6 +89,13 @@ export async function POST(req) {
   Complete Your Payment
 </h2>
 
+     <p style="
+  color:#666;
+  font-size:14px;
+">
+  Order Number:
+  <strong>${orderNumber}</strong>
+</p>
       <p>
         Hi ${fullName},
       </p>

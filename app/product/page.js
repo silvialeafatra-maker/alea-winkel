@@ -218,6 +218,50 @@ useEffect(() => {
   </p>
 </div>
 </div>
+
+<div className="mt-6 border border-zinc-200 rounded-2xl p-5">
+
+  <h3 className="font-semibold text-lg mb-4">
+    Product Details
+  </h3>
+
+  <div className="space-y-3 text-sm">
+
+    <div>
+      <span className="font-medium">
+        Material:
+      </span>
+      <p className="text-zinc-600">
+        Premium Denim Cotton
+      </p>
+    </div>
+
+    <div>
+      <span className="font-medium">
+        Fit:
+      </span>
+      <p className="text-zinc-600">
+        Loose Fit
+      </p>
+    </div>
+
+    <div>
+      <span className="font-medium">
+        Care:
+      </span>
+      <p className="text-zinc-600">
+        Machine wash cold. Do not bleach.
+      </p>
+    </div>
+
+  </div>
+   <div className="mt-6 text-sm text-zinc-600 leading-7">
+  Designed for everyday comfort with a relaxed silhouette,
+  crafted from premium denim fabric that feels soft,
+  durable and timeless.
+</div>
+</div>
+
 <div className="mt-4 flex flex-wrap gap-2 text-xs">
   <span className="px-3 py-1 bg-zinc-100 rounded-full">
     Premium Denim
