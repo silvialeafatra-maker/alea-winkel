@@ -23,7 +23,7 @@ export async function POST(req) {
       .join("");
 
     const data = await resend.emails.send({
-      from: "ALEA Winkel <onboarding@resend.dev>",
+      from: "ALEA Winkel <noreply@aleawinkel.store>",
       to: email,
       subject: "Complete Your Payment - ALEA Winkel",
 
