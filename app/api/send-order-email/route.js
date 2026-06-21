@@ -1,4 +1,5 @@
 import { Resend } from "resend";
+import { supabase } from "@/lib/supabase";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -17,6 +18,27 @@ export async function POST(req) {
   items,
 } = await req.json();
 
+const { error } = await supabase
+  .from("orders")
+  .insert([
+    {
+      order_number: orderNumber,
+      full_name: fullName,
+      phone,
+      email,
+      address,
+      destination,
+      payment_method: payment,
+      total,
+      shipping_cost: shippingCost,
+      status: "Pending",
+    },
+  ]);
+
+if (error) {
+  console.error(error);
+  throw new Error(error.message);
+}
     const itemsHtml = items
       .map(
         (item) => `
@@ -53,7 +75,7 @@ export async function POST(req) {
 
   <img
     src="https://alea-winkel.vercel.app/AleaLogoWhite.png"
-    width="180"
+    width="60"
     alt="ALEA Winkel"
     style="display:block;margin:0 auto;"
   />

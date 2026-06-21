@@ -162,7 +162,7 @@ const handleContinuePayment = async () => {
         shippingCost,
         payment,
         items: cart,
-       }),
+}),
     });
 
     const result = await response.json();
