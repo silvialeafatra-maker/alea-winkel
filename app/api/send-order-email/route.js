@@ -74,26 +74,28 @@ if (error) {
 ">
 
   <img
-    src="https://alea-winkel.vercel.app/AleaLogoWhite.png"
+    src="https://alea-winkel.vercel.app/AleaLogoBlack.png"
     width="60"
     alt="ALEA Winkel"
     style="display:block;margin:0 auto;"
   />
 
   <h1 style="
-  margin-top:0px;
-  margin-bottom:8px;
-  font-size:24px;
+  margin-top:8px;
+  margin-bottom:2px;
+  font-size:14px;
+  font-weight:600;
   color:white;
+  letter-spacing:1px;
 ">
     ALEA Winkel
   </h1>
 
   <p style="
     margin:0;
-    color:#777;
-    font-size:13px;
-    letter-spacing:3px;
+    color:#888;
+    font-size:9px;
+    letter-spacing:2px;
     text-transform:uppercase;
   ">
     Premium Fashion Store
