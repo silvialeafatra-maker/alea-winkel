@@ -76,9 +76,13 @@ export async function POST(req) {
 
     <div style="padding:30px;">
 
-      <h2 style="margin-top:0;">
-        Payment Required
-      </h2>
+      <h2 style="
+  margin-top:0;
+  font-size:32px;
+  font-weight:700;
+">
+  Complete Your Payment
+</h2>
 
       <p>
         Hi ${fullName},
@@ -113,15 +117,15 @@ export async function POST(req) {
           Rp${Number(total).toLocaleString("id-ID")}
         </p>
 
-      </div>
+       </div>
 
-      <p>
-        Your order has been created and is currently waiting for payment.
+        <p>
+         Your order has been successfully created.
       </p>
 
-      <p>
-        After payment confirmation, your order will be processed immediately.
-      </p>
+       <p>
+       Once payment has been confirmed, our team will begin processing and preparing your order for shipment.
+    </p>
 
       <div style="text-align:center; margin-top:30px;">
 
