@@ -33,7 +33,7 @@ useEffect(() => {
     {/* Logo */}
     <div className="absolute left-[47%] md:left-[47%] -translate-x-1/2 flex items-center gap-0 whitespace-nowrap">
   <Image
-  src="/AleaLogo.png"
+  src="/AleaLogoWhite.png"
   width={scrolled ? 42 : 50}
   height={scrolled ? 42 : 50}
   alt="ALEA Winkel"
