@@ -146,20 +146,28 @@ const isFormValid =
 };
 const handleContinuePayment = async () => {
   try {
-    await fetch("/api/send-order-email", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        fullName,
-        total: grandTotal,
-        items: cart,
-      }),
-    });
+    const response = await fetch("/api/send-order-email", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    email,
+    fullName,
+    total: grandTotal,
+    items: cart,
+  }),
+});
+
+const result = await response.json();
+
+console.log("EMAIL RESULT:", result);
+
+alert(JSON.stringify(result));
+
   } catch (error) {
     console.error(error);
+    alert("EMAIL ERROR");
   }
 
   window.location.href = `/payment?total=${grandTotal}&payment=${payment}&name=${encodeURIComponent(fullName)}&phone=${encodeURIComponent(phone)}&destination=${encodeURIComponent(destination)}&address=${encodeURIComponent(address)}&items=${encodeURIComponent(JSON.stringify(cart))}`;
