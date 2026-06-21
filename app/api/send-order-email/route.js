@@ -46,8 +46,8 @@ export async function POST(req) {
 ">
 
   <img
-    src="https://alea-winkel.vercel.app/AleaLogo.png"
-    width="90"
+    src="https://alea-winkel.vercel.app/AleaLogoWhite.png"
+    width="250"
     alt="ALEA Winkel"
     style="display:block;margin:0 auto;"
   />
