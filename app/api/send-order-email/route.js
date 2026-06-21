@@ -25,7 +25,7 @@ export async function POST(req) {
     const data = await resend.emails.send({
       from: "ALEA Winkel <noreply@aleawinkel.store>",
       to: email,
-      subject: "Complete Your Payment - ALEA Winkel",
+      subject: "ALEA Winkel • Complete Your Payment",
 
       html: `
 <div style="font-family: Arial, sans-serif; background:#f5f5f5; padding:40px 20px;">
@@ -40,7 +40,7 @@ export async function POST(req) {
   ">
 
     <div style="
-  padding:40px 30px 30px 30px;
+  padding:20px 30px 20px 30px;
   text-align:center;
   border-bottom:1px solid #e5e5e5;
 ">
@@ -53,12 +53,11 @@ export async function POST(req) {
   />
 
   <h1 style="
-    margin:14px 0 6px 0;
-    font-size:28px;
-    font-weight:700;
-    color:#111;
-    letter-spacing:0.5px;
-  ">
+  margin-top:0px;
+  margin-bottom:8px;
+  font-size:24px;
+  color:white;
+">
     ALEA Winkel
   </h1>
 

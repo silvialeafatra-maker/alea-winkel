@@ -147,30 +147,39 @@ const isFormValid =
 const handleContinuePayment = async () => {
   try {
     const response = await fetch("/api/send-order-email", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    email,
-    fullName,
-    total: grandTotal,
-    items: cart,
-  }),
-});
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        fullName,
+        total: grandTotal,
+        items: cart,
+      }),
+    });
 
-const result = await response.json();
+    const result = await response.json();
 
-console.log("EMAIL RESULT:", result);
+    console.log("EMAIL RESULT:", result);
 
-alert(JSON.stringify(result));
+    if (!response.ok) {
+      throw new Error("Failed to send email");
+    }
+
+    window.location.href =
+      `/payment?total=${grandTotal}` +
+      `&payment=${payment}` +
+      `&name=${encodeURIComponent(fullName)}` +
+      `&phone=${encodeURIComponent(phone)}` +
+      `&destination=${encodeURIComponent(destination)}` +
+      `&address=${encodeURIComponent(address)}` +
+      `&items=${encodeURIComponent(JSON.stringify(cart))}`;
 
   } catch (error) {
     console.error(error);
-    alert("EMAIL ERROR");
+    alert("Failed to send confirmation email.");
   }
-
-  window.location.href = `/payment?total=${grandTotal}&payment=${payment}&name=${encodeURIComponent(fullName)}&phone=${encodeURIComponent(phone)}&destination=${encodeURIComponent(destination)}&address=${encodeURIComponent(address)}&items=${encodeURIComponent(JSON.stringify(cart))}`;
 };
 
   return (
