@@ -363,7 +363,7 @@ transition={{ duration: 1 }}
       {/* LOGO */}
       <div className="flex justify-center items-center gap-1 md:gap-1 text-sm md:text-base">
         <Image
-          src="/AleaLogo.png"
+          src="/AleaLogoBlack.png"
           alt="ALEA Winkel"
           width={50}
           height={50}

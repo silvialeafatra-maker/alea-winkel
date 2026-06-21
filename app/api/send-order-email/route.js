@@ -5,11 +5,16 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export async function POST(req) {
   try {
     const {
-      email,
-      fullName,
-      total,
-      items,
-    } = await req.json();
+  email,
+  fullName,
+  phone,
+  address,
+  destination,
+  total,
+  shippingCost,
+  payment,
+  items,
+} = await req.json();
 
     const itemsHtml = items
       .map(
@@ -90,7 +95,49 @@ export async function POST(req) {
       <p>
         Thank you for shopping at ALEA Winkel.
       </p>
+     <div style="
+  background:#fafafa;
+  border:1px solid #e5e5e5;
+  border-radius:12px;
+  padding:20px;
+  margin:25px 0;
+">
 
+  <h3 style="margin-top:0;">
+    Customer Information
+  </h3>
+
+  <p>
+    <strong>Name:</strong><br>
+    ${fullName}
+  </p>
+
+  <p>
+    <strong>WhatsApp:</strong><br>
+    ${phone}
+  </p>
+
+  <p>
+    <strong>Email:</strong><br>
+    ${email}
+  </p>
+
+  <p>
+    <strong>Shipping Address:</strong><br>
+    ${address}
+  </p>
+
+  <p>
+    <strong>City / District:</strong><br>
+    ${destination}
+  </p>
+
+  <p>
+    <strong>Payment Method:</strong><br>
+    ${payment === "bank" ? "Bank Transfer" : "Crypto Payment"}
+  </p>
+
+</div>
       <div style="
         background:#fafafa;
         border:1px solid #e5e5e5;
@@ -107,14 +154,19 @@ export async function POST(req) {
           ${itemsHtml}
         </ul>
 
-        <p style="
-          font-size:20px;
-          font-weight:bold;
-          margin-top:20px;
-        ">
-          Total:
-          Rp${Number(total).toLocaleString("id-ID")}
-        </p>
+        <p>
+  Shipping:
+  Rp${Number(shippingCost).toLocaleString("id-ID")}
+</p>
+
+<p style="
+  font-size:20px;
+  font-weight:bold;
+  margin-top:20px;
+">
+  Grand Total:
+  Rp${Number(total).toLocaleString("id-ID")}
+</p>
 
        </div>
 
