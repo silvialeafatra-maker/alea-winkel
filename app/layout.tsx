@@ -1,5 +1,4 @@
-import Navbar from "./components/Navbar";
-import WhatsAppButton from "./components/WhatsAppButton";
+import LayoutWrapper from "./components/LayoutWrapper";
 import "./globals.css";
 import Script from "next/script";
 import { Abril_Fatface } from "next/font/google";
@@ -24,26 +23,30 @@ export default function RootLayout({
   return (
     <html lang="id">
       <body>
-        <Navbar />
-        {children}
-        <WhatsAppButton />
 
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-5TRBQ9WPQF"
-          strategy="afterInteractive"
-        />
+  <LayoutWrapper>
+    {children}
+  </LayoutWrapper>
 
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
+  <Script
+    src="https://www.googletagmanager.com/gtag/js?id=G-5TRBQ9WPQF"
+    strategy="afterInteractive"
+  />
 
-            gtag('config', 'G-5TRBQ9WPQF');
-          `}
-        </Script>
+  <Script
+    id="google-analytics"
+    strategy="afterInteractive"
+  >
+    {`
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-      </body>
+      gtag('config', 'G-5TRBQ9WPQF');
+    `}
+  </Script>
+
+</body>
     </html>
   );
 }

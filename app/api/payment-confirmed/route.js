@@ -32,13 +32,13 @@ export async function POST(req) {
 
     <div style="
       text-align:center;
-      padding:40px 30px;
+      padding:25px 30px;
       border-bottom:1px solid #e5e5e5;
     ">
 
       <img
   src="https://alea-winkel.vercel.app/AleaLogoBlack1.png"
-  width="140"
+  width="120"
   alt="ALEA Winkel"
   style="
     display:block;
@@ -95,8 +95,9 @@ export async function POST(req) {
       </p>
 
       <div style="
-        background:#1f2430;
-        border:1px solid rgba(255,255,255,0.08);
+        background:#f3f4f6;
+         border:1px solid #e5e7eb;
+         color:#111827;
         border-radius:12px;
         padding:20px;
         margin:25px 0;
@@ -117,7 +118,9 @@ export async function POST(req) {
       </div>
 
       <div style="
-        background:#0f172a;
+        background:#f8fafc;
+        border:1px solid #e5e7eb;
+        color:#111827;
         padding:18px;
         border-radius:12px;
       ">

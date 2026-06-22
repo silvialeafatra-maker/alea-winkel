@@ -53,7 +53,7 @@ if (error) {
     const data = await resend.emails.send({
       from: "ALEA Winkel <noreply@aleawinkel.store>",
       to: [email, "aleawinkel@gmail.com"],
-      subject: "ALEA Winkel • Complete Your Payment",
+      subject: "Complete Your Payment",
 
       html: `
 <div style="font-family: Arial, sans-serif; background:#f5f5f5; padding:40px 20px;">
@@ -75,7 +75,7 @@ if (error) {
 
   <img
   src="https://alea-winkel.vercel.app/AleaLogoBlack1.png"
-  width="140"
+  width="120"
   alt="ALEA Winkel"
   style="
     display:block;
