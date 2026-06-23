@@ -25,13 +25,14 @@ export default function Shop() {
   if (index !== -1) {
     cart[index].qty += 1;
   } else {
-    cart.push({
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      size: selectedSize,
-      qty: 1,
-    });
+    existing.push({
+  id: product.id,
+  name: product.name,
+  price: product.price,
+  size: selectedSize,
+  qty: 1,
+  image: product.images[0],
+});
   }
 
   localStorage.setItem("cart", JSON.stringify(cart));
@@ -62,7 +63,7 @@ export default function Shop() {
                -72%
                 </div>
                 <Image
-               src={product?.images?.[0] || "/banner1.jpeg"}
+               src={product.image || "/IMG_2579.jpeg"}
                 alt={product.name}
                  fill
                  className="object-cover"
@@ -119,14 +120,15 @@ export default function Shop() {
       existing[index].qty += 1;
     } else {
       existing.push({
-        id: product.id,
-        name: product.name,
-        price: product.price,
-        size: selectedSize,
-        qty: 1,
-      });
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      size: selectedSize,
+      qty: 1,
+      image: product.images?.[0],
+});
     }
-
+console.log(existing);
     localStorage.setItem("cart", JSON.stringify(existing));
 
     window.dispatchEvent(new Event("cartUpdated"));

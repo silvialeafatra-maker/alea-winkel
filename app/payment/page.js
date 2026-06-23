@@ -10,8 +10,7 @@ function PaymentContent() {
   const total = searchParams.get("total") || 0;
   const payment = searchParams.get("payment") || "bank";
   const orderId =
-  "AW-" +
-  Date.now().toString().slice(-8);
+  searchParams.get("orderNumber") || "";
   const name = searchParams.get("name") || "";
   const phone = searchParams.get("phone") || "";
   const destination = searchParams.get("destination") || "";

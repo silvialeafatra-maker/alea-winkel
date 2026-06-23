@@ -14,7 +14,7 @@ export default function Home() {
   const [currentBanner, setCurrentBanner] = useState(0);
 const [currentImage, setCurrentImage] = useState(0);
   const banners = [
-  "/Banner1.jpeg",
+  "/AleaBanner.webp",
   "/Banner2.jpeg",
   "/Banner3.jpeg",
 ];

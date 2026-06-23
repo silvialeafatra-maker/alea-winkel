@@ -252,10 +252,19 @@ if (error) {
 
     return Response.json(data);
 
-  } catch (error) {
-    return Response.json(
-      { error: error.message },
-      { status: 500 }
-    );
+} catch (error) {
+
+  console.error("SEND EMAIL ERROR:", error);
+
+  return Response.json(
+    {
+      error: error.message,
+    },
+    {
+      status: 500,
+    }
+  );
+
   }
+
 }

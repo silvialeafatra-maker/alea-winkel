@@ -12,17 +12,37 @@ export default function AdminPage() {
   useState(null);
 
   useEffect(() => {
-    loadOrders();
-  }, []);
+  loadOrders();
 
+  const channel = supabase
+    .channel("orders")
+    .on(
+      "postgres_changes",
+      {
+        event: "*",
+        schema: "public",
+        table: "orders",
+      },
+      () => {
+        console.log("ORDER UPDATED");
+        loadOrders();
+      }
+    )
+    .subscribe();
+
+  return () => {
+    supabase.removeChannel(channel);
+  };
+}, []);
+
+  
   async function loadOrders() {
   const { data, error } = await supabase
     .from("orders")
     .select("*")
     .order("created_at", { ascending: false });
 
-  console.log("DATA:", data);
-  console.log("ERROR:", error);
+  console.log("JUMLAH ORDER:", data?.length);
 
   setOrders(data || []);
 }

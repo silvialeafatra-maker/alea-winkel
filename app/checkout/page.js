@@ -146,6 +146,8 @@ const isFormValid =
 };
 const handleContinuePayment = async () => {
   try {
+    const orderNumber = `AW-${Date.now()}`;
+    
     const response = await fetch("/api/send-order-email", {
       method: "POST",
       headers: {
@@ -174,13 +176,14 @@ const handleContinuePayment = async () => {
     }
 
     window.location.href =
-      `/payment?total=${grandTotal}` +
-      `&payment=${payment}` +
-      `&name=${encodeURIComponent(fullName)}` +
-      `&phone=${encodeURIComponent(phone)}` +
-      `&destination=${encodeURIComponent(destination)}` +
-      `&address=${encodeURIComponent(address)}` +
-      `&items=${encodeURIComponent(JSON.stringify(cart))}`;
+  `/payment?orderNumber=${orderNumber}` +
+  `&total=${grandTotal}` +
+  `&payment=${payment}` +
+  `&name=${encodeURIComponent(fullName)}` +
+  `&phone=${encodeURIComponent(phone)}` +
+  `&destination=${encodeURIComponent(destination)}` +
+  `&address=${encodeURIComponent(address)}` +
+  `&items=${encodeURIComponent(JSON.stringify(cart))}`;
 
   } catch (error) {
     console.error(error);

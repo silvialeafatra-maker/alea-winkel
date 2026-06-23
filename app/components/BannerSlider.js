@@ -4,9 +4,9 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const banners = [
-  "/AleaBanner1.jpeg",
-  "/AleaBanner2.jpeg",
-  "/AleaBanner3.jpeg",
+  "/AleaBanner.webp",
+  "/Banner2.jpeg",
+  "/Banner3.jpeg",
 ];
 
 export default function BannerZara() {
@@ -45,7 +45,7 @@ export default function BannerZara() {
           alt="banner"
           fill
           priority
-          className="object-contain object-center scale-105"
+          className="object-cover object-center"
         />
       </div>
     </section>
